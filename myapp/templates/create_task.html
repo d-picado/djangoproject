@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block body %} {% load django_bootstrap5 %}
+<div class="container">
+  <h1>Create a new task</h1>
+  <form method="post" class="form">
+    {% csrf_token %} {% bootstrap_form form %}
+    <button type="submit" class="btn btn-secondary">Create</button>
+  </form>
+</div>
+{% endblock body %}

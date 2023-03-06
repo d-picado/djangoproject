@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block body %}
+<h1>Project {{project.id}}</h1>
+<h2>{{project.name}}</h2>
+<br />
+{% if tasks|length != 0 %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Done</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <th scope="row">{{task.id}}</th>
+      <td>{{task.title}}</td>
+      <td>{{task.description}}</td>
+      <td>{{task.done}}</td>
+      {% if not task.done %}
+      <td>
+        <form action="{% url 'mark_done' id=task.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-secondary">✓ Done</button>
+        </form>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Project without tasks</p>
+{% endif %} {% endblock body %}
